@@ -6,7 +6,7 @@
 #include <time.h>
 #include <unistd.h>
 
-system::system(char* argv[]) {
+ssystem::ssystem(char* argv[]) {
 	int d1=0, d2=0;
 
 	p = new polynomial*[2];
@@ -149,7 +149,7 @@ system::system(char* argv[]) {
 
 }
 
-system::~system() {
+ssystem::~ssystem() {
 	delete p[0];
 	delete p[1];
 	delete p;
@@ -164,7 +164,7 @@ system::~system() {
 
 }
 
-void system::print() {
+void ssystem::print() {
 	cout << endl;
 	for(int i=0; i<2; i++) {
 		for(int j=0; j<this->col; j++) {
@@ -179,12 +179,12 @@ void system::print() {
 	cout << endl;
 }
 
-int system::getDepth() {
+int ssystem::getDepth() {
 		return this->depth;
 }
 
 /* Return the degree of the non-hidden variable for polyonym pol */
-int system::get_d(int pol) {
+int ssystem::get_d(int pol) {
 
 	if (hidden == 'y'){
 		return p[pol]->get_d('x');
@@ -196,7 +196,7 @@ int system::get_d(int pol) {
 }
 
 /* Write the pol[0] or pol[1] half of sys into the 2D matrix dest, starting at a specific row */
-void system::get_sys(int** dest, int pol, int skip){
+void ssystem::get_sys(int** dest, int pol, int skip){
 
 	int columns;
 	if (hidden == 'y')

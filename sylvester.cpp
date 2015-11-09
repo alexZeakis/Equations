@@ -1,7 +1,7 @@
 #include <iostream>
 #include "sylvester.h"
 
-sylvester::sylvester(system& s) {
+sylvester::sylvester(ssystem& s) {
 	this->d0 = s.get_d(0);
 	this->d1 = s.get_d(1);
 	this->depth = s.getDepth();

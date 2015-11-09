@@ -2,7 +2,7 @@ SOURCE= main.cpp polynomial.cpp system.cpp sylvester.cpp vsylvester.cpp
 HEADERS= polynomial.h system.h sylvester.h vsylvester.h
 OBJS= main.o polynomial.o system.o sylvester.o vsylvester.o
 CC= g++
-CFLAGS= -c -g
+CFLAGS= -c -g -I .
 EXEC= equations
 
 all: $(OBJS)

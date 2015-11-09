@@ -6,7 +6,7 @@
 #include "polynomial.h"
 using namespace std;
 
-class system {
+class ssystem {
 
 	private:
 		int*** sys;
@@ -15,8 +15,8 @@ class system {
 		char hidden;
 
 	public:
-		system(char* argv[]);
-		~system();
+		ssystem(char* argv[]);
+		~ssystem();
 		void print();
 		int get_d(int pol);
 		void get_sys(int** dest, int pol, int skip);
