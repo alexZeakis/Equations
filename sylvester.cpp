@@ -1,5 +1,7 @@
 #include <iostream>
 #include "sylvester.h"
+#include <Eigen/Dense>
+#include <Eigen/Eigenvalues>
 
 sylvester::sylvester(ssystem& s) {
 	this->d0 = s.get_d(0);
@@ -143,4 +145,33 @@ int sylvester::spol_row_sum(int k, int line, int*v) {
 		sum+= spol[k][line][j]*v[j];
 	}
 	return sum;
+}
+
+
+double sylvester::calculate_k() {
+	double *data = new double[(d0+d1)*(d0+d1)];
+	for(int i=0; i<d0+d1; i++)
+		for(int j=0; j<d0+d1; j++)
+			data[(i*(d0+d1))+j] = spol[depth-1][i][j];
+
+	Eigen::Map<Eigen::MatrixXd> m(data, d0+d1, d0+d1);
+
+	Eigen::EigenSolver<Eigen::MatrixXd> es(m);
+
+	cout << "The eigenvalues of A are:" << endl << es.eigenvalues() << endl;
+
+	double min=es.eigenvalues()[0].real();
+	double max=es.eigenvalues()[0].real();
+	for(int i=0; i< d0+d1; i++) {
+		if(es.eigenvalues()[i].real() < min)
+			min = es.eigenvalues()[i].real();
+		if(es.eigenvalues()[i].real() > max)
+			max = es.eigenvalues()[i].real();
+	}
+
+	cout << "Min is " << min << endl;
+	cout << "Max is " << max << endl;
+
+	delete data;
+	return this->k= max/min;
 }

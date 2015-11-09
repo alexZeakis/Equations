@@ -47,7 +47,7 @@ ssystem::ssystem(char* argv[]) {
 
 					int d = (k==0)?d1:d2;
 					p[k] = new polynomial(d,str);
-					p[k]->print();
+//					p[k]->print();
 				}
 				myfile.close();
 			}
@@ -165,6 +165,10 @@ ssystem::~ssystem() {
 }
 
 void ssystem::print() {
+
+	p[0]->print();
+	p[1]->print();
+
 	cout << endl;
 	for(int i=0; i<2; i++) {
 		for(int j=0; j<this->col; j++) {
