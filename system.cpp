@@ -24,7 +24,7 @@ ssystem::ssystem(char* argv[]) {
 
 				for(int k=0; k<2; k++) {
 					getline(myfile,line);
-					cout << "Line is " << line << endl;
+					cout << line << endl;
 
 					str.clear();
 					for(int i=0; i<line.size(); i++)
