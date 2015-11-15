@@ -13,33 +13,22 @@ companion::companion(sylvester& syl) {
 	c.topRightCorner((d-1)*m,(d-1)*m) = MatrixXd::Identity((d-1)*m,(d-1)*m);
 
 	syl.get_spol(data, d);
-//	cout << data << endl;
 	MatrixXd inv = data.inverse();
-//	cout << inv << endl;
-		
+
 	for(int i=0; i<d; i++) {
 		syl.get_spol(data,i);
 		c.block((d-1)*m, m*i, m, m) = -inv*data;
 	}
+//	MatrixXd nc = c.transpose();
 
-	cout << endl << c << endl;
-
-	MatrixXd nc = c.transpose();
-	cout << endl << nc << endl;
-
-//	EigenSolver<MatrixXd> es(c,true);
 	EigenSolver<MatrixXd> es(c);
-//	EigenSolver<MatrixXd> es(nc);
-//	EigenSolver<MatrixXd> es(nc,true);
 
-	cout << endl << "Solutions-eigenvalues are " << endl << es.eigenvalues() << endl;
-	cout << endl << "Eigenvectors are " << endl << es.eigenvectors() << endl;
+//	cout << endl << "Solutions-eigenvalues are " << endl << es.eigenvalues() << endl;
+//	cout << endl << "Eigenvectors are " << endl << es.eigenvectors() << endl;
 
 	for(int i=0; i<m; i++) {
-		if(es.eigenvalues()[i].real()!=0) {
-//			cout << "y = " << es.eigenvalues()[i].real() << ", x = " << es.eigenvectors()[i][1].real() << endl;
-			cout << "y = " << es.eigenvalues()[i].real() << ", x = " << es.eigenvectors()(1,i).real() << endl;
-//			cout << es.eigenvectors()(1,i) << endl;
+		if(abs(es.eigenvalues()[i].real()) >= 0.00001) {
+			cout << "y = " << es.eigenvalues()[i].real() << ", x = " << es.eigenvectors()(m-2,i).real()/es.eigenvectors()(m-1,i).real() << endl;
 		}
 	}
 }
