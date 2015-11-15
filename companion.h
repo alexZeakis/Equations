@@ -18,3 +18,4 @@ class companion{
 };
 
 #endif
+
