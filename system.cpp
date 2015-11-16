@@ -6,7 +6,7 @@
 #include <time.h>
 #include <unistd.h>
 
-ssystem::ssystem(char* argv[]) {
+sys::sys(char* argv[]) {
 	int d1=0, d2=0;
 
 	p = new polynomial*[2];
@@ -129,42 +129,42 @@ ssystem::ssystem(char* argv[]) {
 
 
 	/* sys is a 3D matrix of size [2][max degree of non-hidden variable + 1][max degree of hidden varible + 1] */
-	sys = new int**[2];
+	system_matrix = new int**[2];
 	for(int i=0; i<2; i++) {
-		sys[i] = new int*[this->col];
+		system_matrix[i] = new int*[this->col];
 		for(int j=0; j<this->col; j++) {
-			sys[i][j] = new int[this->depth];
+			system_matrix[i][j] = new int[this->depth];
 		}
 	}
 
 	for(int i=0; i<2; i++)
 		for(int j=0; j<this->col; j++)
 			for(int k=0; k<this->depth; k++)
-				sys[i][j][k] = 0;
+				system_matrix[i][j][k] = 0;
 
 	/* Fill each vector with the correct vectors from the polyonym constant matrix */
 	for(int i=0; i<2; i++)
 		for(int j=0; j< this->col; j++)
-			p[i]->get_cons(sys[i][j],j,this->hidden,this->depth);
+			p[i]->get_cons(system_matrix[i][j],j,this->hidden,this->depth);
 
 }
 
-ssystem::~ssystem() {
+sys::~sys() {
 	delete p[0];
 	delete p[1];
 	delete p;
 
 	for(int i=0; i<2; i++) {
 		for(int j=0; j<this->col; j++) {
-			delete sys[i][j];
+			delete system_matrix[i][j];
 		}
-		delete sys[i];
+		delete system_matrix[i];
 	}
-	delete sys;
+	delete system_matrix;
 
 }
 
-void ssystem::print() {
+void sys::print() {
 
 	p[0]->print();
 	p[1]->print();
@@ -174,21 +174,21 @@ void ssystem::print() {
 		for(int j=0; j<this->col; j++) {
 			cout << "[";
 			for(int k=0; k<this->depth-1; k++) {
-				cout << sys[i][j][k] << ",";
+				cout << system_matrix[i][j][k] << ",";
 			}
-			cout << sys[i][j][this->depth-1]<< "]\t" ;
+			cout << system_matrix[i][j][this->depth-1]<< "]\t" ;
 		}
 		cout << endl;
 	}
 	cout << endl;
 }
 
-int ssystem::getDepth() {
+int sys::getDepth() {
 		return this->depth;
 }
 
 /* Return the degree of the non-hidden variable for polyonym pol */
-int ssystem::get_d(int pol) {
+int sys::get_d(int pol) {
 
 	if (hidden == 'y'){
 		return p[pol]->get_d('x');
@@ -200,7 +200,7 @@ int ssystem::get_d(int pol) {
 }
 
 /* Write the pol[0] or pol[1] half of sys into the 2D matrix dest, starting at a specific row */
-void ssystem::get_sys(int** dest, int pol, int skip){
+void sys::get_sys(int** dest, int pol, int skip){
 
 	int columns;
 	if (hidden == 'y')
@@ -211,7 +211,7 @@ void ssystem::get_sys(int** dest, int pol, int skip){
 	int i, j;
 	for (i = 0; i < columns; i++){
 		for (j = 0; j < depth; j++){
-			dest[i + skip][j] = sys[pol][(columns - 1) - i][j];
+			dest[i + skip][j] = system_matrix[pol][(columns - 1) - i][j];
 		}
 	}
 	return;

@@ -16,7 +16,7 @@ class sylvester {
 		void print_2d(int **m);
 
 	public:
-		sylvester(ssystem& s);
+		sylvester(sys& s);
 		~sylvester();
 
 		void print_matrix();

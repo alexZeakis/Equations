@@ -6,17 +6,17 @@
 #include "polynomial.h"
 using namespace std;
 
-class ssystem {
+class sys {
 
 	private:
-		int*** sys;
+		int*** system_matrix;
 		polynomial** p;
 		int col, depth;
 		char hidden;
 
 	public:
-		ssystem(char* argv[]);
-		~ssystem();
+		sys(char* argv[]);
+		~sys();
 		void print();
 		int get_d(int pol);
 		void get_sys(int** dest, int pol, int skip);

@@ -3,7 +3,7 @@
 #include <Eigen/Dense>
 #include <Eigen/Eigenvalues>
 
-sylvester::sylvester(ssystem& s) {
+sylvester::sylvester(sys& s) {
 	this->d0 = s.get_d(0);
 	this->d1 = s.get_d(1);
 	this->depth = s.getDepth();
