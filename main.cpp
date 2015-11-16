@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-	ssystem s(argv);
+	sys s(argv);
 //	s.print();
 
 	sylvester syl(s);
