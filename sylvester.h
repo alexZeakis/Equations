@@ -2,8 +2,11 @@
 #define SYLVESTER_H
 
 #include "system.h"
+#include <Eigen/Dense>
+#include <Eigen/Eigenvalues>
 
 using namespace std;
+using namespace Eigen;
 
 class sylvester {
 
@@ -23,6 +26,7 @@ class sylvester {
 		void print_pol(int k);
 		int spol_row_sum(int k, int line, int* v);
 		double calculate_k();
+		void get_spol(MatrixXd& dest, int matrix);
 
 		int getD0(){return d0;};
 		int getD1(){return d1;};
