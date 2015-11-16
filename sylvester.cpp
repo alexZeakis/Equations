@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "sylvester.h"
 
 sylvester::sylvester(sys& s) {
@@ -153,7 +153,7 @@ void sylvester::get_spol(MatrixXd& dest, int matrix) {
 
 double sylvester::calculate_k() {
 	MatrixXd data(d0+d1, d0+d1);
-	this->get_spol(data,depth-1);
+	this->get_spol(data, depth - 1);          /*Write Md from the sylvester polyonym matrix into matrix data*/
 
 //	cout << data << endl;
 	EigenSolver<MatrixXd> es(data);
@@ -161,12 +161,20 @@ double sylvester::calculate_k() {
 
 	double min=es.eigenvalues()[0].real();
 	double max=es.eigenvalues()[0].real();
-	for(int i=0; i< d0+d1; i++) {
+	for (int i = 0; i< d0 + d1; i++) {          /*Find σmax and σmin*/
 		if(es.eigenvalues()[i].real() < min)
 			min = es.eigenvalues()[i].real();
 		if(es.eigenvalues()[i].real() > max)
 			max = es.eigenvalues()[i].real();
 	}
 
-	return this->k= max/min;
+	double k; 
+	if (min < 0.000000000000000001){                       /* min is close to 0 => k tends to infinity */
+		k = -1;
+	}
+	else{
+		k = max / min;
+	}
+
+	return k;
 }

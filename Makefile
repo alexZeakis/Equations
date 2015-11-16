@@ -1,6 +1,6 @@
-SOURCE= main.cpp polynomial.cpp system.cpp sylvester.cpp vsylvester.cpp companion.cpp
-HEADERS= polynomial.h system.h sylvester.h vsylvester.h	companion.h
-OBJS= main.o polynomial.o system.o sylvester.o vsylvester.o companion.o
+SOURCE= main.cpp polynomial.cpp system.cpp sylvester.cpp vsylvester.cpp solver.cpp companion.cpp
+HEADERS= polynomial.h system.h sylvester.h vsylvester.h	solver.h companion.h
+OBJS= main.o polynomial.o system.o sylvester.o vsylvester.o solver.o companion.o
 CC= g++
 CFLAGS= -c -g -I .
 EXEC= equations
@@ -8,7 +8,7 @@ EXEC= equations
 all: $(OBJS)
 	$(CC) $(OBJS) -o $(EXEC)
 
-main.o: main.cpp system.h sylvester.h vsylvester.h
+main.o: main.cpp system.h sylvester.h vsylvester.h solver.h
 	$(CC) $(CFLAGS) main.cpp
 
 polynomial.o: polynomial.cpp polynomial.h
@@ -25,6 +25,10 @@ vsylvester.o: vsylvester.cpp vsylvester.h
 
 companion.o: companion.cpp sylvester.h
 	$(CC) $(CFLAGS) companion.cpp
+
+solver.o: solver.cpp sylvester.h companion.h
+	$(CC) $(CFLAGS) solver.cpp
+
 clean:
 	rm -rf *o $(EXEC)
 

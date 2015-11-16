@@ -26,6 +26,8 @@ companion::companion(sylvester& syl) {
 //	cout << endl << "Solutions-eigenvalues are " << endl << es.eigenvalues() << endl;
 //	cout << endl << "Eigenvectors are " << endl << es.eigenvectors() << endl;
 
+	cout << endl << "Roots" << endl << "_____________________" << endl;
+
 	for(int i=0; i<m; i++) {
 		if(abs(es.eigenvalues()[i].real()) >= 0.00001) {
 			cout << "y = " << es.eigenvalues()[i].real() << ", x = " << es.eigenvectors()(m-2,i).real()/es.eigenvectors()(m-1,i).real() << endl;

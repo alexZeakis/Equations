@@ -11,10 +11,13 @@ using namespace Eigen;
 class solver {
 
 private:
+	double k;
+	//companion &c;
+	//lmatrix &l;
 	
 
 public:
-	solver(sylvester& s);
+	solver(sylvester& s, int argc, char* argv[]);
 	~solver();
 
 	
