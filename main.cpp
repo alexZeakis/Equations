@@ -10,8 +10,8 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-	sys s(argv);
 	cout << endl << "Equations" << endl << "__________________" << endl;
+	sys s(argv);
 	
 //	s.print();
 

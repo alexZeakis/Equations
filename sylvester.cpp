@@ -169,12 +169,12 @@ double sylvester::calculate_k() {
 	}
 
 	double k; 
-	if (min < 0.000000000000000001){                       /* min is close to 0 => k tends to infinity */
+	if (0){                       /* min is close to 0 => k tends to infinity */
 		k = -1;
 	}
 	else{
 		k = max / min;
 	}
 
-	return k;
+	return max/min;
 }

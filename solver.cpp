@@ -18,7 +18,7 @@ solver::solver(sylvester& s, int argc, char *argv[]) {
 	/*Case 2 : k > 10^B */
 	else {
 		cout << "K ~~ " << k << " > Bound: ill-conditioned Μd, generalized eigenproblem " << endl;
-		if (s.getDepth() == 1){      /*degree of hidden = 1*/
+		if (s.getDepth() - 1 == 1){      /*degree of hidden = 1*/
 
 			int d = s.getDepth() - 1;
 			int m = s.getD0() + s.getD1();
