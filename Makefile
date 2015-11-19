@@ -6,10 +6,10 @@ CFLAGS= -c -g -I .
 EXEC= equations
 
 all: $(OBJS)
-	$(CC) $(OBJS) -o $(EXEC)
+	$(CC) $(OBJS) -o $(EXEC) -llapacke
 
 main.o: main.cpp system.h sylvester.h vsylvester.h solver.h
-	$(CC) $(CFLAGS) main.cpp
+	$(CC) $(CFLAGS) main.cpp 
 
 polynomial.o: polynomial.cpp polynomial.h
 	$(CC) $(CFLAGS) polynomial.cpp

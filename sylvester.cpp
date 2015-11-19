@@ -155,19 +155,18 @@ double sylvester::calculate_k() {
 	MatrixXd data(d0+d1, d0+d1);
 	this->get_spol(data, depth - 1);          /*Write Md from the sylvester polyonym matrix into matrix data*/
 
-//	cout << data << endl;
-	EigenSolver<MatrixXd> es(data);
-//	cout << "The eigenvalues of A are:" << endl << es.eigenvalues() << endl;
+	JacobiSVD<MatrixXd> svd(data, ComputeFullU);
 
-	double min= (es.eigenvalues()[0].imag()!=0)?norm(es.eigenvalues()[0]):abs(es.eigenvalues()[0]);
-	double max= (es.eigenvalues()[0].imag()!=0)?norm(es.eigenvalues()[0]):abs(es.eigenvalues()[0]);
+	double min = svd.singularValues()[0];
+	double max = svd.singularValues()[0];
 
 	for (int i = 0; i< d0 + d1; i++) {          /*Find σmax and σmin*/
-		double temp = (es.eigenvalues()[i].imag()!=0)?norm(es.eigenvalues()[i]):abs(es.eigenvalues()[i]);
+		double temp = svd.singularValues()[i];
 		if(temp < min)
 			min = temp;
 		if(temp > max)
 			max = temp;
+
 	}
 
 	return k = (min < 0.00001)?-1:max/min; 	// min is close to 0 => k tends to infinity
