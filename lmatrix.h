@@ -10,8 +10,9 @@ class lmatrix{
 	private:
 		MatrixXd* l0;
 		MatrixXd* l1;
-		double ** solutions;
+		double** solutions;
 		int m, d;
+		char hidden;
 
 		void print();
 		int find(double y);

@@ -5,6 +5,7 @@ sylvester::sylvester(sys& s) {
 	this->d0 = s.get_d(0);
 	this->d1 = s.get_d(1);
 	this->depth = s.getDepth();
+	this->hidden = s.getHidden();
 
 	smatrix = new int**[d0+d1];
 	for(int i=0; i<d0+d1; i++) {

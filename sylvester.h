@@ -15,6 +15,7 @@ class sylvester {
 		int*** spol;
 		int d0,d1, depth;
 		double k;
+		char hidden;
 
 		void print_2d(int **m);
 
@@ -31,5 +32,6 @@ class sylvester {
 		int getD0(){return d0;};
 		int getD1(){return d1;};
 		int getDepth(){return depth;};
+		char getHidden(){return hidden;};
 };
 #endif

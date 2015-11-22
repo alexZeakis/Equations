@@ -11,6 +11,7 @@ class companion{
 		MatrixXd* c;
 		double** solutions;
 		int m, d;
+		char hidden;
 
 		void print();
 		int find(double y);

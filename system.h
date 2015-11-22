@@ -21,6 +21,7 @@ class sys {
 		int get_d(int pol);
 		void get_sys(int** dest, int pol, int skip);
 		int getDepth();
+		char getHidden() {return hidden;};
 };
 
 #endif
