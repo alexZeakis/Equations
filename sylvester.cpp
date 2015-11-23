@@ -50,6 +50,22 @@ sylvester::sylvester(sys& s) {
 		}
 	}
 
+	int test[3]= {-1,-1,-1};
+	MatrixXd testm(d0+d1,d0+d1);
+	for(int i=0; i<3; i++) {
+		int temp;
+		do {
+			temp = rand() % depth;
+		} while(temp==test[0] || temp==test[1] || temp==test[2]);	//different tests
+		test[i] = temp;
+		this->get_spol(testm,test[i]);	//useless as an accessor, but good as a converter from int** to MatrixXd
+		if(testm.determinant()!= 0)	//no need for further tests
+			break;
+		else if(i==2) {	//all determinants were 0 and this is the 3rd test
+			cout << "Determinants were all 0" << endl;
+			exit(2);
+		}
+	}
 }
 
 sylvester::~sylvester() {
@@ -57,7 +73,7 @@ sylvester::~sylvester() {
 
 	for (int i = 0; i < d0 + d1; i++) {
 		for (int j = 0; j < d0 + d1; j++) {
-				delete smatrix[i][j];			
+				delete smatrix[i][j];
 		}
 		delete smatrix[i];
 	}
