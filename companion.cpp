@@ -44,7 +44,7 @@ void companion::solve() {
 	int bottom=0;	//index of last solution
 	for(int i=0; i<m; i++) {
 		complex<double> temp = es.eigenvalues()[i];
-		if(abs(temp.real()) >= 0.00001 && abs(temp.imag()) <= 0.00001) {	//hidden.real not close to 0, hidden.imag realy small
+		if(abs(temp.real()) >= LIMIT && abs(temp.imag()) <= LIMIT) {	//hidden.real not close to 0, hidden.imag realy small
 			int pos = this->find(temp.real());	//find if this solution has already been found, eg multiplicity more than 1
 			if(pos<0) {	//if not
 				solutions[bottom][0] = temp.real();	//insert solution-hidden to solutions
@@ -59,7 +59,7 @@ void companion::solve() {
 	for(int j=0; j<m; j++) {
 		if(solutions[j][2] == 1) {
 			int i= solutions[j][1];
-			if(abs(es.eigenvectors()(m-1,i).real()) >= 0.00001 && abs(es.eigenvectors()(m-1,i).imag()) <= 0.00001)  //not-hidden.real not close to 0, not-hidden.imag realy small
+			if(abs(es.eigenvectors()(m-1,i).real()) >= LIMIT && abs(es.eigenvectors()(m-1,i).imag()) <= LIMIT)  //not-hidden.real not close to 0, not-hidden.imag realy small
 				solutions[j][1] = es.eigenvectors()(m-2,i).real()/es.eigenvectors()(m-1,i).real();	//insert solution-not-hidden
 			else
 				solutions[j][2] = 0;

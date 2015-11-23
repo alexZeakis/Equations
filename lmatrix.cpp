@@ -59,9 +59,9 @@ void lmatrix::solve() {
 
 	int bottom=0;	//index of last solution
 	for(int i=0; i<m; i++) {
-		if(abs(lambda(i,2)) >= 0.00001) {
+		if(abs(lambda(i,2)) >= LIMIT) {
 			double temp = lambda(i,0)/lambda(i,2);
-			if(abs(temp) >= 0.00001) { //hidden.real not close to 0
+			if(abs(temp) >= LIMIT) { //hidden.real not close to 0
 				int pos = this->find(abs(temp));	//find if this solution has already been found, eg multiplicity more than 1
 				if(pos<0) {	//if not
 					solutions[bottom][0] = temp; //insert solution-hidden to solutions
@@ -77,7 +77,7 @@ void lmatrix::solve() {
 	for(int j=0; j<m; j++) {
 		if(solutions[j][2] == 1) {
 			int i= solutions[j][1];
-			if(abs(v(m-1,i)) >= 0.00001 && abs(v(m-2,i)) <= 0.00001)
+			if(abs(v(m-1,i)) >= LIMIT && abs(v(m-2,i)) <= LIMIT)
 				solutions[j][1] = v(m-2,i)/v(m-1,i);	//insert solution-not-hidden
 			else
 				solutions[j][2] = 0;

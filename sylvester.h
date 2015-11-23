@@ -1,6 +1,8 @@
 #ifndef SYLVESTER_H
 #define SYLVESTER_H
 
+#define LIMIT 0.00001
+
 #include "system.h"
 #include <Eigen/Dense>
 #include <Eigen/Eigenvalues>
