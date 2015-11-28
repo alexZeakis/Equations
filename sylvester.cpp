@@ -78,19 +78,19 @@ sylvester::~sylvester() {
 
 	for (int i = 0; i < d0 + d1; i++) {
 		for (int j = 0; j < d0 + d1; j++) {
-				delete smatrix[i][j];
+				delete [] smatrix[i][j];
 		}
-		delete smatrix[i];
+		delete [] smatrix[i];
 	}
-	delete smatrix;
+	delete [] smatrix;
 
 	for (int i = 0; i < depth; i++) {
 		for (int j = 0; j < d0 + d1; j++) {
-			delete spol[i][j];
+			delete [] spol[i][j];
 		}
-		delete spol[i];
+		delete [] spol[i];
 	}
-	delete spol;
+	delete [] spol;
 
 }
 
@@ -117,7 +117,8 @@ void sylvester::print_2d(int **matrix) {
 	cout << endl;
 	for (int i = 0; i < d0 + d1; i++) {
 		for (int j = 0; j < d0 + d1; j++) {
-			cout << matrix[i][j] << "\t";
+//			cout << matrix[i][j] << "\t";
+			cout << matrix[i][j] << " ";
 		}
 		if (i != d0 + d1 - 1){
 			cout << endl;

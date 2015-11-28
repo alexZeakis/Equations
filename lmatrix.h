@@ -14,13 +14,14 @@ class lmatrix{
 		int m, d;
 		char hidden;
 
-		void print();
+		void print_solutions();
 		int find(double y);
 
 	public:
 		lmatrix(sylvester& syl);
 		~lmatrix();
 		void solve();
+		void print();
 };
 
 #endif

@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
 
 	cout << endl << "Equations" << endl << "__________________" << endl;
 	sys s(argv);
-	
+
 //	s.print();
 
 	sylvester syl(s);
@@ -23,13 +23,8 @@ int main(int argc, char* argv[]) {
 
 	syl.print_pol(syl.getDepth()-1);
 
-//	cout << "K ~~ " << syl.calculate_k() << endl;
-
-
-//	companion c(syl);
-
 	solver solve(syl, argc, argv);
-
+//	solve.print();
 /*
 	int v[4] = {1,2,3,4};
 	vsylvester vsyl(syl,v);

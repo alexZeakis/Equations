@@ -25,24 +25,24 @@ companion::companion(sylvester& syl) {
 
 companion::~companion() {
 	delete c;
-	for(int i=0; i<m; i++)
-		solutions[i];
-	delete solutions;
+	for(int i=0; i<d*m; i++)
+		delete [] solutions[i];
+	delete [] solutions;
 }
 
 void companion::solve() {
 	EigenSolver<MatrixXd> es(*c);
 
-	solutions = new double*[m];
-	for(int i=0; i<m; i++)
+	solutions = new double*[d*m];
+	for(int i=0; i<d*m; i++)
 		solutions[i] = new double[3];
 
-	for(int i=0; i<m; i++)
+	for(int i=0; i<d*m; i++)
 		for(int j=0; j<3; j++)
 			solutions[i][j] = 0.0;	//initializing solutions
 
 	int bottom=0;	//index of last solution
-	for(int i=0; i<m; i++) {
+	for(int i=0; i<d*m; i++) {
 		complex<double> temp = es.eigenvalues()[i];
 		if(abs(temp.real()) >= LIMIT && abs(temp.imag()) <= LIMIT) {	//hidden.real not close to 0, hidden.imag realy small
 			int pos = this->find(temp.real());	//find if this solution has already been found, eg multiplicity more than 1
@@ -56,7 +56,7 @@ void companion::solve() {
 		}
 	}
 
-	for(int j=0; j<m; j++) {
+	for(int j=0; j<d*m; j++) {
 		if(solutions[j][2] == 1) {
 			int i= solutions[j][1];
 			if(abs(es.eigenvectors()(m-1,i).real()) >= LIMIT && abs(es.eigenvectors()(m-1,i).imag()) <= LIMIT)  //not-hidden.real not close to 0, not-hidden.imag realy small
@@ -65,21 +65,21 @@ void companion::solve() {
 				solutions[j][2] = 0;
 		}
 	}
-	this->print();
+	this->print_solutions();
 }
 
 /*function to check if solution has already been found*/
 int companion::find(double y) {
-	for(int i=0; i<m; i++)
+	for(int i=0; i<d*m; i++)
 		if( solutions[i][0] == y)
 			return i;
 	return -1;
 }
 
-/*printing function*/
-void companion::print() {
+/*printing solutions function*/
+void companion::print_solutions() {
 	cout << endl << "Roots" << endl << "_______" << endl << endl;
-	for(int i=0; i<m; i++) {
+	for(int i=0; i<d*m; i++) {
 		if(solutions[i][2] > 0) {
 			cout << hidden << " = " << solutions[i][0];
 			if(solutions[i][2] > 1.0)
@@ -88,4 +88,9 @@ void companion::print() {
 				cout << ", " << ((hidden=='x')?"y":"x") << " = " << solutions[i][1] << endl;
 		}
 	}
+}
+
+void companion::print() {
+	cout << "Companion Matrix: " << endl;
+	cout << *c << endl;
 }

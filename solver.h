@@ -21,7 +21,7 @@ private:
 public:
 	solver(sylvester& s, int argc, char* argv[]);
 	~solver();
-
+	void print();
 
 };
 #endif
