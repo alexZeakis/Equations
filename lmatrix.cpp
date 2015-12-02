@@ -48,7 +48,7 @@ void lmatrix::solve(int t[]) {
 
 	INFO = LAPACKE_dggev(LAPACK_COL_MAJOR, 'N', 'V', m, l0->data(), LDA, l1->data(), LDB, alphar, alphai, beta, 0, LDV, v.data(), LDV);
 
-	solutions = new double*[m];
+	solutions = new double*[d*m];
 	for(int i=0; i<d*m; i++)
 		solutions[i] = new double[3];
 
@@ -91,8 +91,8 @@ void lmatrix::solve(int t[]) {
 
 	if (t != NULL){        /* If hidden variable is z, due to change of variable */
 		for (int j = 0; j < d*m; j++){
-
-			solutions[j][0] = (t[0] * solutions[j][0] + t[1]) / (t[2] * solutions[j][0] + t[3]);
+			if (solutions[j][2] >= 1)
+				solutions[j][0] = (t[0] * solutions[j][0] + t[1]) / (t[2] * solutions[j][0] + t[3]);
 		}
 		this->hidden = 'y';
 	}

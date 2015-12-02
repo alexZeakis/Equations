@@ -121,8 +121,8 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 
 		/* Initialize temp1[depth][d0 + d1][d0 + d1], temp2[depth][d0 + d1][d0 + d1] to zero*/
 		for (int i = 0; i < depth; i++) {
-			temp1[i] = MatrixXd::Zero(d0 + d1, d0 + d1);
-			temp2[i] = MatrixXd::Zero(d0 + d1, d0 + d1);
+			temp1[i] =  MatrixXd::Zero(d0 + d1, d0 + d1);
+			temp2[i] =  MatrixXd::Zero(d0 + d1, d0 + d1);
 		}
 
 		for (int i = 0; i < depth; i++) {     /* For every Mi, calculate temp1 (its contribution to every Mi')*/
@@ -195,6 +195,9 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 		}*/
 		//delete &temp1;
 		//delete &temp2;
+
+		delete [] temp1;
+		delete [] temp2;
 		
 		/* Fill smatrix from the sylvester polyonym matrix */
 		for (int i = 0; i < depth; i++) {

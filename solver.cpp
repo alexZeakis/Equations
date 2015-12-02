@@ -71,6 +71,14 @@ int solver::change_hidden(){
 			sylvester *old_syl = syl;        /* Save old sylvester pointer */
 			syl = &new_syl;
 			k = new_k;
+			if (c != NULL){
+				delete c;
+				c = NULL;
+			}
+			if (l != NULL){
+				delete l;
+				l = NULL;
+			}
 			this->solve(t);                  /* Solve with new sylvester */
 			syl = old_syl;                   /* Return to original sylvester */
 			break;

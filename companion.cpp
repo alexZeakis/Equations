@@ -71,8 +71,8 @@ void companion::solve(int t[]) {
 
 	if (t != NULL){        /* If hidden variable is z, due to change of variable */
 		for (int j = 0; j < d*m; j++){
-
-			solutions[j][0] = (t[0] * solutions[j][0] + t[1]) / (t[2] * solutions[j][0] + t[3]);
+			//if (solutions[j][2] >= 1)
+				solutions[j][0] = (t[0] * solutions[j][0] + t[1]) / (t[2] * solutions[j][0] + t[3]);
 		}
 		this->hidden = 'y';
 	}
@@ -124,5 +124,5 @@ void companion::check_pol_values(sys *s){
 			//cout << "Check : p1 = " << p1->calculate_value(x, y) << " and p2 = " << p2->calculate_value(x, y) << endl;
 		}
 	}
-
+	
 }
