@@ -121,46 +121,50 @@ sys::sys(char* argv[]) {
 	int d1y = p[0]->get_d('y');
 	int d2x = p[1]->get_d('x');
 	int d2y = p[1]->get_d('y');
+//	cout << "d1x is " << d1x << " and d1y is " << d1y << " and d2x is " << d2x << " and d2y is " << d2y << endl;
 	int maxdx = (d1x>d2x)?d1x:d2x;
 	int maxdy = (d1y>d2y)?d1y:d2y;
-	this->hidden = (((d1y<d2y)?d1y:d2y) < ((d1x<d2y)?d1x:d2x) ) ? 'y':'x';
+//	this->hidden = (((d1y<d2y)?d1y:d2y) < ((d1x<d2x)?d1x:d2x) ) ? 'y':'x';
+	this->hidden = (maxdy < maxdx)? 'y':'x';
 	this->col = (this->hidden=='y')?maxdx+1:maxdy+1;
 	this->depth = (this->hidden=='y')?maxdy+1:maxdx+1;
+//	cout << "Maxdx is " << maxdx << " and maxdy is " << maxdy << " and hidden is " << hidden << " and col is " << col << " and depth is " << depth << endl;
 
 
 	/* sys is a 3D matrix of size [2][max degree of non-hidden variable + 1][max degree of hidden varible + 1] */
 	system_matrix = new int**[2];
 	for(int i=0; i<2; i++) {
 		system_matrix[i] = new int*[this->col];
-		for(int j=0; j<this->col; j++) {
+		for(int j=0; j< this->col; j++) {
 			system_matrix[i][j] = new int[this->depth];
 		}
 	}
 
 	for(int i=0; i<2; i++)
-		for(int j=0; j<this->col; j++)
-			for(int k=0; k<this->depth; k++)
+		for(int j=0; j< this->col; j++)
+			for(int k=0; k< this->depth; k++)
 				system_matrix[i][j][k] = 0;
 
 	/* Fill each vector with the correct vectors from the polyonym constant matrix */
 	for(int i=0; i<2; i++)
 		for(int j=0; j< this->col; j++)
-			p[i]->get_cons(system_matrix[i][j],j,this->hidden,this->depth);
-
+			for(int k=0; k< this->depth; k++)
+				p[i]->get_cons(system_matrix[i][j][k], j, k, this->hidden, this->depth);
 }
 
 sys::~sys() {
-	delete p[0];
-	delete p[1];
-	delete p;
 
 	for(int i=0; i<2; i++) {
-		for(int j=0; j<this->col; j++) {
-			delete system_matrix[i][j];
+		for(int j=0; j< this->col; j++) {
+			delete [] system_matrix[i][j];
 		}
-		delete system_matrix[i];
+		delete [] system_matrix[i];
 	}
-	delete system_matrix;
+	delete [] system_matrix;
+
+	delete p[0];
+	delete p[1];
+	delete [] p ;
 
 }
 
@@ -185,6 +189,14 @@ void sys::print() {
 
 int sys::getDepth() {
 		return this->depth;
+}
+
+/* Return a pointer to polynomial i */
+polynomial* sys::get_pol(int i){
+	if (i > -1 && i < 2)
+		return this->p[i];
+	else
+		return NULL;
 }
 
 /* Return the degree of the non-hidden variable for polyonym pol */
@@ -217,3 +229,5 @@ void sys::get_sys(int** dest, int pol, int skip){
 	return;
 	
 }
+
+

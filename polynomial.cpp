@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <math.h>
 #include "polynomial.h"
 
 #define RANGE 100
@@ -103,8 +104,8 @@ polynomial::polynomial(int d, string pol) {
 polynomial::~polynomial() {
 
 	for (int i = 0; i < d + 1; i++)
-		delete cons[i];
-	delete cons;
+		delete [] cons[i];
+	delete [] cons;
 }
 
 
@@ -143,17 +144,29 @@ int polynomial::get_d(char var){
 }
 
 /* Write the vector of constants for a specific degree of x or a specific degree of y into vector dest */
-void polynomial::get_cons(int *dest, int line, char var, int depth){
+void polynomial::get_cons(int& dest, int j, int k, char var, int depth){
 
-	int lim = (depth > d)?d:depth;
-	for (int i = 0; i < lim; i++){
+	if(j< d+1) {
 		if (var == 'y'){
-			dest[i] = cons[line][i];
+			dest = cons[j][k];
 		}
 		else if (var == 'x'){
-			dest[i] = cons[i][line];
+			dest = cons[k][j];
 		}
 	}
-	return;
+
+}
+
+/* Calculate the value of the polynomial for specific x, y */
+double polynomial::calculate_value(double x, double y){
+
+	double sum = 0;
+	for (int i = 0; i<d + 1; i++) {
+		for (int j = 0; j < d + 1; j++){
+			sum += pow(x, i)*pow(y, j)*cons[i][j];
+		}
+	}
+	
+	return sum;
 }
 

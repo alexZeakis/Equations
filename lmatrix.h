@@ -1,22 +1,24 @@
-#ifndef COMPANION_H
-#define COMPANION_H
+#ifndef LMATRIX_H
+#define LMATRIX_H
 
 #include "sylvester.h"
 
 using namespace std;
 
-class companion{
+class lmatrix{
 
 	private:
-		MatrixXd* c;
+		MatrixXd* l0;
+		MatrixXd* l1;
 		double** solutions;
 		int m, d;
 		char hidden;
 
 		int find(double y);
+
 	public:
-		companion(sylvester* syl);
-		~companion();
+		lmatrix(sylvester* syl);
+		~lmatrix();
 		void solve(int t[] = NULL);
 		void print_solutions();
 		void check_pol_values(sys *s);

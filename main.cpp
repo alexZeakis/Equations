@@ -11,28 +11,21 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
 	cout << endl << "Equations" << endl << "__________________" << endl;
-	sys s(argv);
-	
-//	s.print();
+	sys s(argv);                            /*Make system */
 
-	sylvester syl(s);
+	//	s.print();
 
-//	syl.print_matrix();
-//	cout << endl;
-//	syl.print_pol(-1);
+	sylvester syl(s);                       /*Make sylvester matrix */
 
-	syl.print_pol(syl.getDepth()-1);
+	//	syl.print_matrix();
+	//	cout << endl;
+	//	syl.print_pol(-1);
 
-//	cout << "K ~~ " << syl.calculate_k() << endl;
+	syl.print_pol(syl.getDepth() - 1);     /*Print Md */
 
+	//	cout << "K ~~ " << syl.calculate_k() << endl;
 
-//	companion c(syl);
+	solver solve(&syl, argc, argv);        /* Solve */
+	//solve.change_hidden();                 /* Attempt to change hidden variable, possibly solve again */
 
-	solver solve(syl, argc, argv);
-
-/*
-	int v[4] = {1,2,3,4};
-	vsylvester vsyl(syl,v);
-	vsyl.print_matrix();
-*/
 }

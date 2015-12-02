@@ -2,6 +2,8 @@
 #define SOLVER_H
 
 #include "sylvester.h"
+#include "companion.h"
+#include "lmatrix.h"
 #include <Eigen/Dense>
 #include <Eigen/Eigenvalues>
 
@@ -12,14 +14,20 @@ class solver {
 
 private:
 	double k;
-	//companion &c;
-	//lmatrix &l;
-	
+	int b;
+	companion* c = NULL;
+	lmatrix* l = NULL;
+	sylvester* syl;
+	int solve(int t[] = NULL);
+
 
 public:
-	solver(sylvester& s, int argc, char* argv[]);
+	solver(sylvester* s, int argc, char* argv[]);
 	~solver();
 
+	int change_hidden();
 	
+
+
 };
 #endif
