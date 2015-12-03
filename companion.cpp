@@ -29,7 +29,7 @@ companion::~companion() {
 	delete [] solutions;
 }
 
-void companion::solve(int t[]) {
+void companion::solve(int t[], char original_hidden) {
 	EigenSolver<MatrixXd> es(*c);
 
 	solutions = new double*[d*m];
@@ -74,7 +74,7 @@ void companion::solve(int t[]) {
 			//if (solutions[j][2] >= 1)
 				solutions[j][0] = (t[0] * solutions[j][0] + t[1]) / (t[2] * solutions[j][0] + t[3]);
 		}
-		this->hidden = 'y';
+		this->hidden = original_hidden;
 	}
 	
 }

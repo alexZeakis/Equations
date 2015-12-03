@@ -33,7 +33,7 @@ lmatrix::~lmatrix() {
 	delete [] solutions;
 }
 
-void lmatrix::solve(int t[]) {
+void lmatrix::solve(int t[], char original_hidden) {
 	MatrixXd v(d*m, d*m);
 	MatrixXd lambda(d*m, 3);
 
@@ -94,7 +94,7 @@ void lmatrix::solve(int t[]) {
 			if (solutions[j][2] >= 1)
 				solutions[j][0] = (t[0] * solutions[j][0] + t[1]) / (t[2] * solutions[j][0] + t[3]);
 		}
-		this->hidden = 'y';
+		this->hidden = original_hidden;
 	}
 	
 }

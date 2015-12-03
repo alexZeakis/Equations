@@ -18,7 +18,7 @@ private:
 	companion* c = NULL;
 	lmatrix* l = NULL;
 	sylvester* syl;
-	int solve(int t[] = NULL);
+	int solve(int t[] = NULL, char original_hidden = 'y');
 
 
 public:

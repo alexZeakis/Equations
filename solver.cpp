@@ -15,14 +15,14 @@ solver::solver(sylvester* s, int argc, char *argv[]) {
 	this->solve();
 }
 
-int solver::solve(int t[]){
+int solver::solve(int t[], char original_hidden){
 		
 	/*Case 1 : k < 10^B */
 	if (k < pow(10, b) && k > -1){
 		cout << endl << "K ~~ " << k << " < Bound: non-singular Μd, standard eigenproblem " << endl;
 		c = new companion(syl);
 		if (t != NULL)
-			c->solve(t);        /* t holds the random t1, t2, t3, t4 when solving a changed variable problem */
+			c->solve(t, original_hidden);   /* Extra info needed when solving a changed variable problem */
 		else
 			c->solve();
 		c->print_solutions();
@@ -33,7 +33,7 @@ int solver::solve(int t[]){
 		cout << endl << "K ~~ " << k << " > Bound: ill-conditioned Μd, generalized eigenproblem " << endl;
 		l = new  lmatrix(syl);
 		if (t != NULL)
-			l->solve(t);       /* t holds the random t1, t2, t3, t4 when solving a changed variable problem */
+			l->solve(t, original_hidden);    /* Extra info needed when solving a changed variable problem */
 		else
 			l->solve();
 		l->print_solutions();
@@ -69,6 +69,7 @@ int solver::change_hidden(){
 		if (new_k != -1 && (new_k < k || k == -1)){  /* Determine if k is better */
 
 			sylvester *old_syl = syl;        /* Save old sylvester pointer */
+			char original_hidden = old_syl->getHidden();
 			syl = &new_syl;
 			k = new_k;
 			if (c != NULL){
@@ -79,8 +80,8 @@ int solver::change_hidden(){
 				delete l;
 				l = NULL;
 			}
-			this->solve(t);                  /* Solve with new sylvester */
-			syl = old_syl;                   /* Return to original sylvester */
+			this->solve(t, original_hidden);                 /* Solve with new sylvester */
+			syl = old_syl;                                   /* Return to original sylvester */
 			break;
 		}
 		attempt++;

@@ -187,15 +187,6 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 
 		}
 
-		/*for (int i = 0; i < depth; i++) {
-			MatrixXd* t1 = &temp1[i];
-			MatrixXd* t2 = &temp2[i];
-			delete t1;
-			delete t2;
-		}*/
-		//delete &temp1;
-		//delete &temp2;
-
 		delete [] temp1;
 		delete [] temp2;
 		
