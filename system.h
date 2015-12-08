@@ -22,6 +22,8 @@ class sys {
 		void get_sys(int** dest, int pol, int skip);
 		int getDepth();
 		char getHidden() {return hidden;};
+
+		polynomial* get_pol(int i);
 };
 
 #endif

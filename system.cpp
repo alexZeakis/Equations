@@ -191,6 +191,14 @@ int sys::getDepth() {
 		return this->depth;
 }
 
+/* Return a pointer to polynomial i */
+polynomial* sys::get_pol(int i){
+	if (i > -1 && i < 2)
+		return this->p[i];
+	else
+		return NULL;
+}
+
 /* Return the degree of the non-hidden variable for polyonym pol */
 int sys::get_d(int pol) {
 
@@ -221,3 +229,5 @@ void sys::get_sys(int** dest, int pol, int skip){
 	return;
 	
 }
+
+

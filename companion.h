@@ -13,12 +13,13 @@ class companion{
 		int m, d;
 		char hidden;
 
-		void print_solutions();
 		int find(double y);
 	public:
-		companion(sylvester& syl);
+		companion(sylvester* syl);
 		~companion();
-		void solve();
+		void solve(int t[] = NULL, char original_hidden = 'y');
+		void print_solutions();
+		void check_pol_values(sys *s);
 		void print();
 };
 

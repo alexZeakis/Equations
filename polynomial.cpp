@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <math.h>
 #include "polynomial.h"
 
 #define RANGE 100
@@ -74,6 +75,10 @@ polynomial::polynomial(int d, string pol) {
 				con = atoi(token.c_str());
 			}
 			pol.erase(0, pos+1);
+			if(degx> d || degy>d) {
+				cout << endl << "Wrong d1 or d2!" << endl;
+				exit(5);
+			}
 			cons[degx][degy] = con;
 		}
 	}
@@ -154,5 +159,18 @@ void polynomial::get_cons(int& dest, int j, int k, char var, int depth){
 		}
 	}
 
+}
+
+/* Calculate the value of the polynomial for specific x, y */
+double polynomial::calculate_value(double x, double y){
+
+	double sum = 0;
+	for (int i = 0; i<d + 1; i++) {
+		for (int j = 0; j < d + 1; j++){
+			sum += pow(x, i)*pow(y, j)*cons[i][j];
+		}
+	}
+	
+	return sum;
 }
 

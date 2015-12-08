@@ -20,6 +20,7 @@ class polynomial {
 
 		int get_d(char var);
 		void get_cons(int& dest, int j, int k, char var, int depth);
+		double calculate_value(double x, double y);
 
 };
 

@@ -14,14 +14,20 @@ class solver {
 
 private:
 	double k;
-	companion* c=NULL;
-	lmatrix* l=NULL;
+	int b;
+	companion* c = NULL;
+	lmatrix* l = NULL;
+	sylvester* syl;
+	int solve(int t[] = NULL, char original_hidden = 'y');
 
 
 public:
-	solver(sylvester& s, int argc, char* argv[]);
+	solver(sylvester* s, int argc, char* argv[]);
 	~solver();
+
+	int change_hidden();
 	void print();
+
 
 };
 #endif
