@@ -17,6 +17,7 @@ class polynomial {
 		~polynomial();
 
 		void print();
+		void printGenerate();
 
 		int get_d(char var);
 		void get_cons(int& dest, int j, int k, char var, int depth);

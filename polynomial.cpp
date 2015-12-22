@@ -21,7 +21,6 @@ polynomial::polynomial(int d, string pol) {
 		size_t pos =0;
 		while(pol.size() > 0) {
 			string token;
-
 			if((pos = pol.find("+")) != string::npos) {
 				token = pol.substr(0,pos);
 			}
@@ -31,7 +30,7 @@ polynomial::polynomial(int d, string pol) {
 			}
 
 			string c,var1,var2;
-			int con, degx=0, degy=0;
+			int con, degx=-1, degy=-1;
 			size_t dpos;
 			if((dpos = token.find("*")) != string::npos) {	/* Check if term that includes variables or constant */
 				c = token.substr(0,dpos);
@@ -43,30 +42,28 @@ polynomial::polynomial(int d, string pol) {
 					var1 = token.substr(0,dpos);
 					var2 = token.substr(dpos+1,token.size());
 					if(var1[0]=='x') {
-							var1.erase(0,2);	
-						var2.erase(0,2);	
-						degx = atoi(var1.c_str());           /* Save the exponents for x and y*/
-						degy = atoi(var2.c_str());
+						var1.erase(0,2);
+						var2.erase(0,2);
+						degx = (isdigit(var1[0])) ? atoi(var1.c_str()) : 1;           /* Save the exponents for x and y*/
+						degy = (isdigit(var2[0])) ? atoi(var2.c_str()) : 1;
 					}
 					else { /* var1[0]=='y' */
-						var1.erase(0,2);	
-						var2.erase(0,2);	
-						degy = atoi(var1.c_str());
-						degx = atoi(var2.c_str());
+						var1.erase(0,2);
+						var2.erase(0,2);
+						degy = (isdigit(var1[0])) ? atoi(var1.c_str()) : 1;
+						degx = (isdigit(var2[0])) ? atoi(var2.c_str()) : 1;
 					}
-					if(!degx) degx=1;
-					if(!degy) degy=1;
 				}
 				else { /* term with single variable */
 					if(token[0] == 'x') {
 						token.erase(0,2);
-						degx = atoi(token.c_str());
-						if(!degx) degx=1;
+						degx = (isdigit(token[0])) ? atoi(token.c_str()) : 1;
+						degy=0;
 					}
 					else { /* token[0]=='y' */
 						token.erase(0,2);
-						degy = atoi(token.c_str());
-						if(!degy) degy=1;
+						degy = (isdigit(token[0])) ? atoi(token.c_str()) : 1;
+						degx=0;
 					}
 				}
 			}
@@ -75,7 +72,14 @@ polynomial::polynomial(int d, string pol) {
 				con = atoi(token.c_str());
 			}
 			pol.erase(0, pos+1);
-			if(degx> d || degy>d) {
+
+
+			if(degx+degy==-2) {	//mononym with no variable
+				degx=0;
+				degy=0;
+			}
+
+			if(degx+degy>d) {
 				cout << endl << "Wrong d1 or d2!" << endl;
 				exit(5);
 			}
@@ -174,3 +178,28 @@ double polynomial::calculate_value(double x, double y){
 	return sum;
 }
 
+void polynomial::printGenerate() {
+	for(int i=0; i<d+1; i++) {
+		for(int j=0; j<d+1; j++) {
+			if(cons[i][j]<0 || i+j==0)	//1st cond is for +- and 2nd cond is for + at the first term
+				cout << cons[i][j];
+			else if(cons[i][j]>0)
+				cout << "+" << cons[i][j];
+			else	//cons[i][j]==0
+				continue;
+
+			if(i==1)	//x
+				cout << "x";
+			else if(i>1)	//x^i, where i>1
+				cout << "x^" << i;
+
+			if(j==1)	//y
+				cout << "y";
+			else if(j>1)	//y^j, where j>1
+				cout << "y^" << j;
+
+			cout << " ";
+		}
+	}
+	cout << endl;
+}
