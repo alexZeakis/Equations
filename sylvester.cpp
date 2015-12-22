@@ -12,11 +12,11 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 		this->hidden = s.getHidden();
 		this->origin_system = &s;
 
-		smatrix = new int**[d0 + d1];
+		smatrix = new double**[d0 + d1];
 		for (int i = 0; i < d0 + d1; i++) {
-			smatrix[i] = new int*[d0 + d1];
+			smatrix[i] = new double*[d0 + d1];
 			for (int j = 0; j < d0 + d1; j++) {
-				smatrix[i][j] = new int[depth];
+				smatrix[i][j] = new double[depth];
 			}
 		}
 
@@ -39,11 +39,11 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 
 		/* Fill spol, representing sylvester polyonym from smatrix */
 
-		spol = new int**[depth];
+		spol = new double**[depth];
 		for (int i = 0; i < depth; i++) {
-			spol[i] = new int*[d0 + d1];
+			spol[i] = new double*[d0 + d1];
 			for (int j = 0; j < d0 + d1; j++) {
-				spol[i][j] = new int[d0 + d1];
+				spol[i][j] = new double[d0 + d1];
 			}
 		}
 
@@ -89,19 +89,19 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 		this->hidden = 'z';
 		this->origin_system = syl->getSystem();
 
-		smatrix = new int**[d0 + d1];
+		smatrix = new double**[d0 + d1];
 		for (int i = 0; i < d0 + d1; i++) {
-			smatrix[i] = new int*[d0 + d1];
+			smatrix[i] = new double*[d0 + d1];
 			for (int j = 0; j < d0 + d1; j++) {
-				smatrix[i][j] = new int[depth];
+				smatrix[i][j] = new double[depth];
 			}
 		}
 
-		spol = new int**[depth];
+		spol = new double**[depth];
 		for (int i = 0; i < depth; i++) {
-			spol[i] = new int*[d0 + d1];
+			spol[i] = new double*[d0 + d1];
 			for (int j = 0; j < d0 + d1; j++) {
-				spol[i][j] = new int[d0 + d1];
+				spol[i][j] = new double[d0 + d1];
 			}
 		}
 
@@ -112,8 +112,8 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 					spol[i][j][k] = 0;
 				}
 			}
-		}		
-		
+		}
+
 		//cout << endl << "t1 = " << t[0] << " t2 = " << t[1] << " t3 = " << t[2] << " t4 = " << t[3] << endl;
 
 		MatrixXd *temp1 = new MatrixXd[depth];
@@ -129,20 +129,19 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 
 			MatrixXd& ptr = temp1[0];         /* Copy original Mi into temp1[0]*/
 			syl->get_spol(ptr, i);
-			
-			for (int j = 0; j < i; j++){      /* Calculate Mi*(t1z + t2)^j and keep it in the appropriate index
-											     of temp1 */	
+
+			for (int j = 0; j < i; j++){      /* Calculate Mi*(t1z + t2)^j and keep it in the appropriate index of temp1 */
 
 				for (int l = 0; l <= j; l++){  /*Use temp2 to save the sum of multiplications */
-					
+
 					MatrixXd& t1 = temp1[l];
 					MatrixXd& t2 = temp2[l];
 					MatrixXd& t3 = temp2[l + 1];
 					t2 += (t1 * t[1]);           /*temp2[l] += temp1[l]*t2 */
 					t3 += (t1 * t[0]);           /*temp2[l + 1] += temp1[l]*t1*/
-					
-				}				
-				
+
+				}
+
 				for (int l = 0; l <= j + 1; l++) { /*Copy the sums saved into temp2 to temp1, return temp2 to zero*/
 
 					MatrixXd& t1 = temp1[l];
@@ -150,13 +149,11 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 					t1 = t2;
 					t2.setZero();
 				}
-				
-
 			}
 			for (int j = 0; j < depth - 1 - i; j++){
-				
+
 				/* Calculate Mi*(t3z + t4)^j and keep it in the appropriate index of temp1 */
-				
+
 				for (int l = 0; l <= j; l++){
 
 					MatrixXd& t1 = temp1[l];
@@ -172,8 +169,7 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 					MatrixXd& t2 = temp2[l];
 					t1 = t2;
 					t2.setZero();
-				}				
-
+				}
 			}
 
 			/* Add temp1 (the contribution of Mi to every Mi') to the new spol matrix */
@@ -189,7 +185,7 @@ sylvester::sylvester(sys& s, sylvester* syl, int t[]) {
 
 		delete [] temp1;
 		delete [] temp2;
-		
+
 		/* Fill smatrix from the sylvester polyonym matrix */
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < d0 + d1; j++) {
@@ -242,7 +238,7 @@ void sylvester::print_matrix() {
 }
 
 /*Print a 2D matrix and dont change line after printg the last row */
-void sylvester::print_2d(int **matrix) {
+void sylvester::print_2d(double **matrix) {
 
 	cout << endl;
 	for (int i = 0; i < d0 + d1; i++) {

@@ -134,11 +134,11 @@ sys::sys(char* argv[]) {
 
 
 	/* sys is a 3D matrix of size [2][max degree of non-hidden variable + 1][max degree of hidden varible + 1] */
-	system_matrix = new int**[2];
+	system_matrix = new double**[2];
 	for(int i=0; i<2; i++) {
-		system_matrix[i] = new int*[this->col];
+		system_matrix[i] = new double*[this->col];
 		for(int j=0; j< this->col; j++) {
-			system_matrix[i][j] = new int[this->depth];
+			system_matrix[i][j] = new double[this->depth];
 		}
 	}
 
@@ -214,7 +214,7 @@ int sys::get_d(int pol) {
 }
 
 /* Write the pol[0] or pol[1] half of sys into the 2D matrix dest, starting at a specific row */
-void sys::get_sys(int** dest, int pol, int skip){
+void sys::get_sys(double** dest, int pol, int skip){
 
 	int columns;
 	if (hidden == 'y')

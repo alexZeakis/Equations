@@ -9,7 +9,7 @@ using namespace std;
 class polynomial {
 
 	private:
-		int** cons;
+		double** cons;
 		int d;
 
 	public:
@@ -20,7 +20,7 @@ class polynomial {
 		void printGenerate();
 
 		int get_d(char var);
-		void get_cons(int& dest, int j, int k, char var, int depth);
+		void get_cons(double& dest, int j, int k, char var, int depth);
 		double calculate_value(double x, double y);
 
 };

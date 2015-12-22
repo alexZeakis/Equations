@@ -9,9 +9,9 @@
 polynomial::polynomial(int d, string pol) {
 	this->d = d;
 
-	cons = new int*[d+1];
+	cons = new double*[d+1];
 	for(int i=0; i<d+1; i++)
-		cons[i] = new int[d+1];
+		cons[i] = new double[d+1];
 
 	for(int i=0; i<d+1; i++)
 		for(int j=0; j<d+1; j++)
@@ -35,7 +35,7 @@ polynomial::polynomial(int d, string pol) {
 			if((dpos = token.find("*")) != string::npos) {	/* Check if term that includes variables or constant */
 				c = token.substr(0,dpos);
 
-				con = atoi(c.c_str());
+				con = atof(c.c_str());
 				token.erase(0,dpos+1);
 
 				if ((dpos = token.find("*")) != string::npos) {	/* Check if term with two variables or one */
@@ -69,16 +69,18 @@ polynomial::polynomial(int d, string pol) {
 			}
 
 			else {
-				con = atoi(token.c_str());
+				con = atof(token.c_str());
+				degx=0;
+				degy=0;
 			}
 			pol.erase(0, pos+1);
 
-
+			/*
 			if(degx+degy==-2) {	//mononym with no variable
 				degx=0;
 				degy=0;
 			}
-
+			*/
 			if(degx+degy>d) {
 				cout << endl << "Wrong d1 or d2!" << endl;
 				exit(5);
@@ -152,7 +154,7 @@ int polynomial::get_d(char var){
 }
 
 /* Write the vector of constants for a specific degree of x or a specific degree of y into vector dest */
-void polynomial::get_cons(int& dest, int j, int k, char var, int depth){
+void polynomial::get_cons(double& dest, int j, int k, char var, int depth){
 
 	if(j< d+1) {
 		if (var == 'y'){

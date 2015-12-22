@@ -9,7 +9,7 @@ using namespace std;
 class sys {
 
 	private:
-		int*** system_matrix;
+		double*** system_matrix;
 		polynomial** p;
 		int col, depth;
 		char hidden;
@@ -19,7 +19,7 @@ class sys {
 		~sys();
 		void print();
 		int get_d(int pol);
-		void get_sys(int** dest, int pol, int skip);
+		void get_sys(double** dest, int pol, int skip);
 		int getDepth();
 		char getHidden() {return hidden;};
 

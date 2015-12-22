@@ -15,14 +15,14 @@ using namespace Eigen;
 class sylvester {
 
 	private:
-		int*** smatrix;
-		int*** spol;
+		double*** smatrix;
+		double*** spol;
 		int d0,d1, depth;
 		double k;
 		char hidden;
 		sys *origin_system;
 
-		void print_2d(int **m);
+		void print_2d(double **m);
 
 	public:
 		sylvester(sys& s, sylvester* syl = NULL, int t[] = NULL);
