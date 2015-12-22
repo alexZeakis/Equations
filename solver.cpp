@@ -95,3 +95,9 @@ solver::~solver() {
 	if (c != NULL) delete c;
 	if (l != NULL) delete l;
 }
+
+
+void solver::print() {
+	if (c != NULL) c->print();
+	if (l != NULL) l->print();
+}

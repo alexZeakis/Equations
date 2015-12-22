@@ -26,6 +26,6 @@ int main(int argc, char* argv[]) {
 	//	cout << "K ~~ " << syl.calculate_k() << endl;
 
 	solver solve(&syl, argc, argv);        /* Solve */
-	//solve.change_hidden();                 /* Attempt to change hidden variable, possibly solve again */
+	solve.change_hidden();                 /* Attempt to change hidden variable, possibly solve again */
 
 }

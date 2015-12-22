@@ -26,7 +26,7 @@ public:
 	~solver();
 
 	int change_hidden();
-	
+	void print();
 
 
 };
