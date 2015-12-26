@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "polynomial.h"
+#include <stdio.h>
 
 #define RANGE 100
 
@@ -30,7 +31,8 @@ polynomial::polynomial(int d, string pol) {
 			}
 
 			string c,var1,var2;
-			int con, degx=-1, degy=-1;
+			float con;
+			int degx=-1, degy=-1;
 			size_t dpos;
 			if((dpos = token.find("*")) != string::npos) {	/* Check if term that includes variables or constant */
 				c = token.substr(0,dpos);

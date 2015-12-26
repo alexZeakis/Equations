@@ -31,6 +31,9 @@ sys::sys(char* argv[]) {
 						if(line[i]!=' ')
 							str.append(&(line[i]),1);	/* eliminate space */
 
+					if(str[0]!='+')
+						str.insert(0,"+");
+
 					size_t pos, hold=0;
 					while((pos = str.find_first_of("+-",hold)) != string::npos) {
 						if(!isdigit(str[pos+1]))
@@ -38,14 +41,13 @@ sys::sys(char* argv[]) {
 						hold = pos+3;
 					}
 
+					str.erase(0,1);
 					hold=0;
 					while((pos = str.find("-",hold)) != string::npos) {
 						str.insert(pos,"+");	/* insert "+" to separate terms */ 
 						hold = pos+2;
 					}
 
-					if(str[0]!='+')
-						str.insert(0,"+");
 
 					int d = (k==0)?d1:d2;
 					p[k] = new polynomial(d,str);
