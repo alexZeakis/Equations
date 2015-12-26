@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
 	cout << endl << "Equations" << endl << "__________________" << endl;
 	sys s(argv);                            /*Make system */
 
-	//s.print();
+	//	s.print();
 
 	sylvester syl(s);                       /*Make sylvester matrix */
 

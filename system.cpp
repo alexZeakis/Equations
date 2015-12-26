@@ -85,6 +85,7 @@ sys::sys(char* argv[]) {
 					hold = pos+3;
 				}
 
+				str.erase(0,1);
 				hold=0;
 				while((pos = str.find("-",hold)) != string::npos) {
 					str.insert(pos,"+");	/* insert "+" to separate terms */ 
@@ -93,7 +94,7 @@ sys::sys(char* argv[]) {
 
 				int d = (k==0)?d1:d2;
 				p[k] = new polynomial(d,str);
-				p[k]->print();
+//				p[k]->print();
 			}
 
 		}
@@ -111,8 +112,8 @@ sys::sys(char* argv[]) {
 			int d = (i==0)?d1:d2;
 			p[i] = new polynomial(d, "");     /* Empty string signifies make random polynomial*/
 			cout << endl;
-			p[i]->print();
-			p[i]->printGenerate();
+//			p[i]->print();
+//			p[i]->printGenerate();
 		}
 	}
 	else {

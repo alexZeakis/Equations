@@ -88,6 +88,7 @@ polynomial::polynomial(int d, string pol) {
 				exit(5);
 			}
 			cons[degx][degy] = con;
+//			printf("Degx is %d and degy is %d and con is %f and %f\n", degx, degy, con, cons[degx][degy]);
 		}
 	}
 	else {		/* Create polyonym randomly by generating random constants for the upper left half of the 
@@ -126,6 +127,7 @@ void polynomial::print() {
 	for(int i=0; i<d+1; i++) {
 		for(int j=0; j<d+1; j++)
 			cout << cons[i][j] << "\t";
+//			printf("%f\t", cons[i][j]);
 		cout << endl;
 	}
 	cout << endl;
